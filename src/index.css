@@ -12,6 +12,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root.dark {
+  color-scheme: dark;
+  @apply bg-zinc-900 text-zinc-50;
+}
+
 body {
   margin: 0;
   display: flex;

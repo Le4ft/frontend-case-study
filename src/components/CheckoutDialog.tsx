@@ -77,8 +77,8 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({ open, onOpenChan
 				{(step === 'form' || step === 'submitting') && (
 					<div className="flex flex-col gap-4">
 						<div className="flex flex-col gap-1">
-							<span className="text-sm font-medium text-zinc-700">{t('checkout.summary')}</span>
-							<div className="flex flex-col gap-1 max-h-32 overflow-y-auto text-sm text-zinc-600">
+							<span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">{t('checkout.summary')}</span>
+							<div className="flex flex-col gap-1 max-h-32 overflow-y-auto text-sm text-zinc-600 dark:text-zinc-400">
 								{cartItems.map((item) => (
 									<div key={item.seat.seatId} className="flex justify-between">
 										<span>
@@ -88,7 +88,7 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({ open, onOpenChan
 									</div>
 								))}
 							</div>
-							<div className="flex justify-between font-semibold pt-2 border-t border-zinc-100 mt-1">
+							<div className="flex justify-between font-semibold pt-2 border-t border-zinc-100 dark:border-zinc-800 mt-1">
 								<span>{t('checkout.summary')}</span>
 								<span>{formatCurrency(totalAmount, currencyIso, locale)}</span>
 							</div>
@@ -96,7 +96,7 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({ open, onOpenChan
 
 						{user ? (
 							<div className="flex flex-col gap-3">
-								<p className="text-sm text-zinc-600">
+								<p className="text-sm text-zinc-600 dark:text-zinc-400">
 									{t('checkout.loggedInAs')}: <span className="font-medium">{user.email}</span>
 								</p>
 								<Button
@@ -128,7 +128,7 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({ open, onOpenChan
 				{step === 'success' && result && (
 					<div className="flex flex-col items-center gap-3 py-4 text-center">
 						<CheckCircle2 className="size-12 text-emerald-500" />
-						<p className="text-sm text-zinc-600">
+						<p className="text-sm text-zinc-600 dark:text-zinc-400">
 							{t('checkout.success.orderId')}: <span className="font-mono">{result.orderId}</span>
 						</p>
 						<p className="text-lg font-semibold">{formatCurrency(result.totalAmount, currencyIso, locale)}</p>
@@ -139,7 +139,7 @@ export const CheckoutDialog: React.FC<CheckoutDialogProps> = ({ open, onOpenChan
 				{step === 'error' && (
 					<div className="flex flex-col items-center gap-3 py-4 text-center">
 						<XCircle className="size-12 text-red-500" />
-						<p className="text-sm text-zinc-600">{errorMessage}</p>
+						<p className="text-sm text-zinc-600 dark:text-zinc-400">{errorMessage}</p>
 						<Button variant="secondary" onClick={() => setStep('form')}>
 							{t('checkout.backToCart')}
 						</Button>

@@ -20,9 +20,9 @@ export const SeatMap: React.FC<SeatMapProps> = ({ tickets, currencyIso }) => {
 	const sortedRows = [...tickets.seatRows].sort((a, b) => a.seatRow - b.seatRow);
 
 	return (
-		<div className="bg-white rounded-md grow shadow-sm p-3 self-stretch flex flex-col gap-4 overflow-x-auto">
-			<div className="flex flex-wrap gap-3 text-xs text-zinc-500 pb-2 border-b border-zinc-100">
-				<span className="font-medium text-zinc-700">{t('seatmap.legend')}:</span>
+		<div className="bg-white dark:bg-zinc-900 rounded-md grow shadow-sm p-3 self-stretch flex flex-col gap-4 overflow-x-auto">
+			<div className="flex flex-wrap gap-3 text-xs text-zinc-500 dark:text-zinc-400 pb-2 border-b border-zinc-100 dark:border-zinc-800">
+				<span className="font-medium text-zinc-700 dark:text-zinc-300">{t('seatmap.legend')}:</span>
 				{tickets.ticketTypes.map((ticketType) => {
 					const color = getTicketTypeColor(ticketTypeIds, ticketType.id);
 					return (
@@ -41,7 +41,9 @@ export const SeatMap: React.FC<SeatMapProps> = ({ tickets, currencyIso }) => {
 
 					return (
 						<div key={row.seatRow} className="flex items-center gap-2">
-							<span className="w-8 shrink-0 text-xs text-zinc-400 font-medium text-right">{row.seatRow}</span>
+							<span className="w-8 shrink-0 text-xs text-zinc-400 dark:text-zinc-500 font-medium text-right">
+								{row.seatRow}
+							</span>
 							<div className="flex gap-1.5">
 								{Array.from({ length: maxPlace }, (_, i) => i + 1).map((place) => {
 									const seat = seatsByPlace.get(place);

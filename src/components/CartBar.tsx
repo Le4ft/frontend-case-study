@@ -19,16 +19,18 @@ export const CartBar: React.FC<CartBarProps> = ({ eventId, currencyIso }) => {
 
 	return (
 		<>
-			<nav className="sticky bottom-0 left-0 right-0 bg-white border-t border-zinc-200 flex justify-center">
+			<nav className="sticky bottom-0 left-0 right-0 bg-white dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800 flex justify-center">
 				<div className="max-w-screen-lg p-6 flex justify-between items-center gap-4 grow">
 					<div className="flex flex-col">
 						{totalCount > 0 ? (
 							<>
-								<span className="text-sm text-zinc-500">{t('cart.total', { count: totalCount, ticketWord })}</span>
+								<span className="text-sm text-zinc-500 dark:text-zinc-400">
+									{t('cart.total', { count: totalCount, ticketWord })}
+								</span>
 								<span className="text-2xl font-semibold">{formatCurrency(totalAmount, currencyIso, locale)}</span>
 							</>
 						) : (
-							<span className="text-sm text-zinc-500">{t('cart.empty')}</span>
+							<span className="text-sm text-zinc-500 dark:text-zinc-400">{t('cart.empty')}</span>
 						)}
 					</div>
 

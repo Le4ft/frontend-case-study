@@ -10,33 +10,32 @@ import {
 	DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu.tsx';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog.tsx';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher.tsx';
 import { LoginForm } from '@/components/LoginForm.tsx';
+import { ThemeToggle } from '@/components/ThemeToggle.tsx';
 import { useAuth } from '@/context/AuthContext.tsx';
 import { useI18n } from '@/context/I18nContext.tsx';
 import React, { useState } from 'react';
 
 export const Header: React.FC = () => {
 	const { user, logout } = useAuth();
-	const { locale, setLocale, t } = useI18n();
+	const { t } = useI18n();
 	const [isLoginOpen, setIsLoginOpen] = useState(false);
 
 	const initials = user ? `${user.firstName[0] ?? ''}${user.lastName[0] ?? ''}`.toUpperCase() : '';
 
 	return (
-		<nav className="sticky top-0 left-0 right-0 bg-white border-b border-zinc-200 flex justify-center z-40">
+		<nav className="sticky top-0 left-0 right-0 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex justify-center z-40">
 			<div className="max-w-screen-lg p-4 grow flex items-center justify-between gap-3">
 				<div className="max-w-[250px] w-full flex">
-					<div className="bg-zinc-100 rounded-md size-12 flex items-center justify-center text-xl">🎟️</div>
+					<div className="bg-zinc-100 dark:bg-zinc-800 rounded-md size-12 flex items-center justify-center text-xl">
+						🎟️
+					</div>
 				</div>
 
-				<div className="flex items-center gap-2">
-					<Button
-						variant="ghost"
-						size="sm"
-						onClick={() => setLocale(locale === 'cs' ? 'en' : 'cs')}
-					>
-						{locale === 'cs' ? '🇨🇿 CS' : '🇬🇧 EN'}
-					</Button>
+				<div className="flex items-center gap-1">
+					<ThemeToggle />
+					<LanguageSwitcher />
 				</div>
 
 				<div className="max-w-[250px] w-full flex justify-end">
@@ -56,7 +55,7 @@ export const Header: React.FC = () => {
 											<span className="text-sm font-medium">
 												{user.firstName} {user.lastName}
 											</span>
-											<span className="text-xs text-zinc-500">{user.email}</span>
+											<span className="text-xs text-zinc-500 dark:text-zinc-400">{user.email}</span>
 										</div>
 									</div>
 								</Button>

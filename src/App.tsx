@@ -17,13 +17,13 @@ function App() {
 			<main className="grow flex flex-col justify-center">
 				<div className="max-w-screen-lg m-auto p-4 flex items-start grow gap-3 w-full flex-col md:flex-row">
 					{isLoading && (
-						<div className="grow flex items-center justify-center self-stretch bg-white rounded-md shadow-sm p-12 text-zinc-400">
+						<div className="grow flex items-center justify-center self-stretch bg-white dark:bg-zinc-900 rounded-md shadow-sm p-12 text-zinc-400">
 							{t('event.loading')}
 						</div>
 					)}
 
 					{error && !isLoading && (
-						<div className="grow flex items-center justify-center self-stretch bg-white rounded-md shadow-sm p-12 text-red-500">
+						<div className="grow flex items-center justify-center self-stretch bg-white dark:bg-zinc-900 rounded-md shadow-sm p-12 text-red-500 dark:text-red-400">
 							{t('event.error')}
 						</div>
 					)}
