@@ -149,7 +149,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({ tickets, currencyIso }) => {
 			</div>
 
 			<div className="scrollbar-thin overflow-x-auto p-1.5 -m-1.5">
-				<div className="flex flex-col gap-2 min-w-fit mx-auto w-fit">
+				<div className="flex flex-col gap-2 min-w-fit w-fit">
 					{sortedRows.map((row) => {
 						const seatsByPlace = new Map(row.seats.map((seat) => [seat.place, seat]));
 						const maxPlace = Math.max(0, ...row.seats.map((seat) => seat.place));
