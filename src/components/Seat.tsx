@@ -74,11 +74,16 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 						</div>
 
 						{isInCart ? (
-							<Button variant="destructive" className="rounded-full px-5 shrink-0" onClick={onToggle}>
+							<Button
+								variant="destructive"
+								size="sm"
+								className="rounded-md px-4 shrink-0"
+								onClick={onToggle}
+							>
 								{t('seat.remove.short')}
 							</Button>
 						) : (
-							<Button variant="default" className="rounded-full px-6 shrink-0" onClick={onToggle}>
+							<Button variant="default" size="sm" className="rounded-md px-4 shrink-0" onClick={onToggle}>
 								{t('seat.add.short')}
 							</Button>
 						)}
