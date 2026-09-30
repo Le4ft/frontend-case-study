@@ -9,12 +9,14 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu.tsx';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog.tsx';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog.tsx';
+import { DialogIconHeader } from '@/components/DialogIconHeader.tsx';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher.tsx';
 import { LoginForm } from '@/components/LoginForm.tsx';
 import { ThemeToggle } from '@/components/ThemeToggle.tsx';
 import { useAuth } from '@/context/AuthContext.tsx';
 import { useI18n } from '@/context/I18nContext.tsx';
+import { LogIn } from 'lucide-react';
 import React, { useState } from 'react';
 
 export const Header: React.FC = () => {
@@ -78,10 +80,13 @@ export const Header: React.FC = () => {
 							<DialogTrigger asChild>
 								<Button variant="secondary">{t('header.login')}</Button>
 							</DialogTrigger>
-							<DialogContent>
-								<DialogHeader>
-									<DialogTitle>{t('header.login')}</DialogTitle>
-								</DialogHeader>
+							<DialogContent className="sm:max-w-sm gap-5">
+								<DialogIconHeader
+									icon={<LogIn />}
+									title={t('auth.title')}
+									subtitle={t('auth.subtitle')}
+									gradientClassName="bg-gradient-to-br from-sky-500 to-indigo-600"
+								/>
 								<LoginForm onSuccess={() => setIsLoginOpen(false)} />
 							</DialogContent>
 						</Dialog>

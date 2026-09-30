@@ -4,6 +4,7 @@ import { Label } from '@/components/ui/label.tsx';
 import { useAuth } from '@/context/AuthContext.tsx';
 import { ApiError } from '@/lib/api.ts';
 import { useI18n } from '@/context/I18nContext.tsx';
+import { Lock, Mail } from 'lucide-react';
 import React, { useState } from 'react';
 
 interface LoginFormProps {
@@ -29,6 +30,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, submitLabel }) 
 		}
 	};
 
+	const fillDemoCredentials = () => {
+		setEmail('frontend@nfctron.com');
+		setPassword('Nfctron2025');
+	};
+
 	return (
 		<form onSubmit={handleSubmit} className="flex flex-col gap-3">
 			<div className="flex flex-col gap-1.5">
@@ -37,6 +43,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, submitLabel }) 
 					id="login-email"
 					type="email"
 					required
+					icon={<Mail />}
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 					placeholder="frontend@nfctron.com"
@@ -48,14 +55,23 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, submitLabel }) 
 					id="login-password"
 					type="password"
 					required
+					icon={<Lock />}
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
 			</div>
 			{error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
-			<Button type="submit" disabled={isLoggingIn}>
+			<Button type="submit" disabled={isLoggingIn} className="mt-1">
 				{submitLabel ?? t('checkout.loginSubmit')}
 			</Button>
+
+			<button
+				type="button"
+				onClick={fillDemoCredentials}
+				className="text-xs text-center text-zinc-400 dark:text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors underline underline-offset-2 decoration-dotted"
+			>
+				{t('checkout.useDemoAccount')}
+			</button>
 		</form>
 	);
 };
