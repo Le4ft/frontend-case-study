@@ -27,9 +27,9 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 				<PopoverTrigger asChild>
 					<div
 						className={cn(
-							'size-8 rounded-full flex items-center justify-center cursor-pointer transition-colors',
+							'size-8 rounded-full flex items-center justify-center cursor-pointer transition-all duration-150 hover:scale-110 active:scale-95',
 							isInCart
-								? 'bg-zinc-900 hover:bg-zinc-900/90 dark:bg-zinc-50 dark:hover:bg-zinc-50/90'
+								? 'bg-zinc-900 hover:bg-zinc-900/90 dark:bg-zinc-50 dark:hover:bg-zinc-50/90 ring-2 ring-offset-2 ring-zinc-900 dark:ring-zinc-50 ring-offset-white dark:ring-offset-zinc-900'
 								: `${color.bg} ${color.hover}`,
 							className
 						)}
@@ -57,7 +57,10 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 							<span className="font-medium">{seat.place}</span>
 						</div>
 						<div className="flex justify-between">
-							<span className="text-zinc-500 dark:text-zinc-400">{ticketType.name}</span>
+							<span className="text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
+								<span className={cn('size-2 rounded-full', color.dot)} />
+								{ticketType.name}
+							</span>
 							<span className="font-medium">{formatCurrency(ticketType.price, currencyIso, locale)}</span>
 						</div>
 					</div>

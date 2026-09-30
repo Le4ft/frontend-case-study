@@ -19,22 +19,29 @@ export const CartBar: React.FC<CartBarProps> = ({ eventId, currencyIso }) => {
 
 	return (
 		<>
-			<nav className="sticky bottom-0 left-0 right-0 bg-white dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800 flex justify-center">
-				<div className="max-w-screen-lg p-6 flex justify-between items-center gap-4 grow">
+			<nav className="sticky bottom-0 left-0 right-0 bg-white/85 dark:bg-zinc-900/85 backdrop-blur-sm border-t border-zinc-200 dark:border-zinc-800 shadow-[0_-4px_16px_-4px_rgba(0,0,0,0.08)] flex justify-center">
+				<div className="max-w-screen-lg p-4 sm:p-6 flex justify-between items-center gap-4 grow">
 					<div className="flex flex-col">
 						{totalCount > 0 ? (
 							<>
 								<span className="text-sm text-zinc-500 dark:text-zinc-400">
 									{t('cart.total', { count: totalCount, ticketWord })}
 								</span>
-								<span className="text-2xl font-semibold">{formatCurrency(totalAmount, currencyIso, locale)}</span>
+								<span className="text-2xl font-semibold tabular-nums">
+									{formatCurrency(totalAmount, currencyIso, locale)}
+								</span>
 							</>
 						) : (
 							<span className="text-sm text-zinc-500 dark:text-zinc-400">{t('cart.empty')}</span>
 						)}
 					</div>
 
-					<Button disabled={totalCount === 0} variant="default" onClick={() => setIsCheckoutOpen(true)}>
+					<Button
+						disabled={totalCount === 0}
+						variant="default"
+						size="lg"
+						onClick={() => setIsCheckoutOpen(true)}
+					>
 						{t('cart.checkout')}
 					</Button>
 				</div>

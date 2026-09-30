@@ -17,6 +17,11 @@
   @apply bg-zinc-900 text-zinc-50;
 }
 
+:root,
+:root.dark {
+  transition: background-color 150ms ease;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -30,4 +35,31 @@ body {
     flex-direction: column;
     width: 100%;
     min-height: 100vh;
+}
+
+/* Thin, unobtrusive scrollbar for the horizontally-scrolling seat map */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: theme('colors.zinc.300') transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: theme('colors.zinc.300');
+  border-radius: 9999px;
+}
+
+:root.dark .scrollbar-thin {
+  scrollbar-color: theme('colors.zinc.700') transparent;
+}
+
+:root.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: theme('colors.zinc.700');
 }

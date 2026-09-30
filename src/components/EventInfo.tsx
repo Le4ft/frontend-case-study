@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { useI18n } from '@/context/I18nContext.tsx';
 import { buildCalendarEvent, formatDateRange } from '@/lib/format.ts';
 import type { EventInfo as EventInfoData } from '@/types';
-import { CalendarPlus } from 'lucide-react';
+import { CalendarPlus, Clock, MapPin } from 'lucide-react';
 import React from 'react';
 
 interface EventInfoProps {
@@ -24,17 +24,34 @@ export const EventInfo: React.FC<EventInfoProps> = ({ event }) => {
 	};
 
 	return (
-		<aside className="w-full max-w-sm bg-white dark:bg-zinc-900 rounded-md shadow-sm p-3 flex flex-col gap-2 self-start">
-			<img
-				src={event.headerImageUrl}
-				alt={event.namePub}
-				className="bg-zinc-100 dark:bg-zinc-800 rounded-md h-32 w-full object-cover"
-			/>
-			<h1 className="text-xl text-zinc-900 dark:text-zinc-50 font-semibold">{event.namePub}</h1>
-			<p className="text-sm text-zinc-600 dark:text-zinc-300">{formatDateRange(event.dateFrom, event.dateTo, locale)}</p>
-			<p className="text-sm text-zinc-600 dark:text-zinc-300">{event.place}</p>
-			<p className="text-sm text-zinc-500 dark:text-zinc-400 whitespace-pre-line">{event.description}</p>
-			<Button variant="secondary" onClick={handleAddToCalendar} className="gap-2">
+		<aside className="w-full max-w-sm bg-white dark:bg-zinc-900 rounded-xl shadow-sm p-4 flex flex-col gap-3 self-start">
+			<div className="relative -mx-4 -mt-4 mb-1">
+				<img
+					src={event.headerImageUrl}
+					alt={event.namePub}
+					className="bg-zinc-100 dark:bg-zinc-800 rounded-t-xl h-36 w-full object-cover"
+				/>
+				<div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/50 to-transparent rounded-t-xl pointer-events-none" />
+			</div>
+
+			<h1 className="text-xl text-zinc-900 dark:text-zinc-50 font-semibold leading-tight">{event.namePub}</h1>
+
+			<div className="flex flex-col gap-1.5 text-sm text-zinc-600 dark:text-zinc-300">
+				<span className="flex items-center gap-2">
+					<Clock className="size-4 shrink-0 text-zinc-400 dark:text-zinc-500" />
+					{formatDateRange(event.dateFrom, event.dateTo, locale)}
+				</span>
+				<span className="flex items-center gap-2">
+					<MapPin className="size-4 shrink-0 text-zinc-400 dark:text-zinc-500" />
+					{event.place}
+				</span>
+			</div>
+
+			<p className="text-sm text-zinc-500 dark:text-zinc-400 whitespace-pre-line leading-relaxed">
+				{event.description}
+			</p>
+
+			<Button variant="secondary" onClick={handleAddToCalendar} className="gap-2 mt-1">
 				<CalendarPlus className="size-4" />
 				{t('event.addToCalendar')}
 			</Button>

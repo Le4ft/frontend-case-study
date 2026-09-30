@@ -25,12 +25,15 @@ export const Header: React.FC = () => {
 	const initials = user ? `${user.firstName[0] ?? ''}${user.lastName[0] ?? ''}`.toUpperCase() : '';
 
 	return (
-		<nav className="sticky top-0 left-0 right-0 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex justify-center z-40">
+		<nav className="sticky top-0 left-0 right-0 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm border-b border-zinc-200 dark:border-zinc-800 flex justify-center z-40">
 			<div className="max-w-screen-lg p-4 grow flex items-center justify-between gap-3">
-				<div className="max-w-[250px] w-full flex">
-					<div className="bg-zinc-100 dark:bg-zinc-800 rounded-md size-12 flex items-center justify-center text-xl">
+				<div className="max-w-[250px] w-full flex items-center gap-2.5">
+					<div className="bg-gradient-to-br from-pink-500 to-rose-600 rounded-lg size-10 flex items-center justify-center text-lg shrink-0 shadow-sm">
 						🎟️
 					</div>
+					<span className="font-semibold text-zinc-900 dark:text-zinc-50 tracking-tight hidden sm:inline">
+						NFCtron Tickets
+					</span>
 				</div>
 
 				<div className="flex items-center gap-1">

@@ -1,6 +1,6 @@
 import { fetchEvent, fetchEventTickets } from '@/lib/api.ts';
 import type { EventInfo, EventTickets } from '@/types';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface EventDataState {
 	event: EventInfo | null;
@@ -9,18 +9,24 @@ interface EventDataState {
 	error: string | null;
 }
 
-export function useEventData(): EventDataState {
+interface UseEventDataResult extends EventDataState {
+	refetch: () => void;
+}
+
+export function useEventData(): UseEventDataResult {
 	const [state, setState] = useState<EventDataState>({
 		event: null,
 		tickets: null,
 		isLoading: true,
 		error: null
 	});
+	const [retryToken, setRetryToken] = useState(0);
 
 	useEffect(() => {
 		let cancelled = false;
 
 		async function load() {
+			setState((prev) => ({ ...prev, isLoading: true, error: null }));
 			try {
 				const event = await fetchEvent();
 				const tickets = await fetchEventTickets(event.eventId);
@@ -44,7 +50,9 @@ export function useEventData(): EventDataState {
 		return () => {
 			cancelled = true;
 		};
-	}, []);
+	}, [retryToken]);
 
-	return state;
+	const refetch = useCallback(() => setRetryToken((prev) => prev + 1), []);
+
+	return { ...state, refetch };
 }
