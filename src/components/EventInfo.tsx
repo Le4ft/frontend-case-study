@@ -1,8 +1,10 @@
 import { Button } from '@/components/ui/button.tsx';
 import { useI18n } from '@/context/I18nContext.tsx';
+import { useToast } from '@/context/ToastContext.tsx';
+import { useCountdown } from '@/hooks/useCountdown.ts';
 import { buildCalendarEvent, formatDateRange } from '@/lib/format.ts';
 import type { EventInfo as EventInfoData } from '@/types';
-import { CalendarPlus, Clock, MapPin } from 'lucide-react';
+import { CalendarPlus, Clock, MapPin, Share2 } from 'lucide-react';
 import React from 'react';
 
 interface EventInfoProps {
@@ -11,6 +13,8 @@ interface EventInfoProps {
 
 export const EventInfo: React.FC<EventInfoProps> = ({ event }) => {
 	const { locale, t } = useI18n();
+	const { showToast } = useToast();
+	const countdown = useCountdown(event.dateFrom, event.dateTo);
 
 	const handleAddToCalendar = () => {
 		const ics = buildCalendarEvent(event);
@@ -21,6 +25,25 @@ export const EventInfo: React.FC<EventInfoProps> = ({ event }) => {
 		link.download = `${event.namePub.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.ics`;
 		link.click();
 		URL.revokeObjectURL(url);
+		showToast(t('toast.calendar.added'), 'success');
+	};
+
+	const handleShare = async () => {
+		const shareData = { title: event.namePub, text: event.namePub, url: window.location.href };
+		if (navigator.share) {
+			try {
+				await navigator.share(shareData);
+			} catch {
+				// user cancelled the native share sheet — nothing to do
+			}
+			return;
+		}
+		try {
+			await navigator.clipboard.writeText(window.location.href);
+			showToast(t('toast.share.copied'), 'success');
+		} catch {
+			showToast(t('toast.share.failed'), 'error');
+		}
 	};
 
 	return (
@@ -32,6 +55,22 @@ export const EventInfo: React.FC<EventInfoProps> = ({ event }) => {
 					className="bg-zinc-100 dark:bg-zinc-800 rounded-t-xl h-36 w-full object-cover"
 				/>
 				<div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/50 to-transparent rounded-t-xl pointer-events-none" />
+
+				<div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-black/55 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1 tabular-nums">
+					{countdown.status === 'live' && (
+						<>
+							<span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+							{t('event.countdown.live')}
+						</>
+					)}
+					{countdown.status === 'upcoming' && (
+						<>
+							{t('event.countdown.startsIn')} {countdown.days}d {countdown.hours}h {countdown.minutes}m{' '}
+							{countdown.seconds}s
+						</>
+					)}
+					{countdown.status === 'past' && t('event.countdown.ended')}
+				</div>
 			</div>
 
 			<h1 className="text-xl text-zinc-900 dark:text-zinc-50 font-semibold leading-tight">{event.namePub}</h1>
@@ -51,10 +90,15 @@ export const EventInfo: React.FC<EventInfoProps> = ({ event }) => {
 				{event.description}
 			</p>
 
-			<Button variant="secondary" onClick={handleAddToCalendar} className="gap-2 mt-1">
-				<CalendarPlus className="size-4" />
-				{t('event.addToCalendar')}
-			</Button>
+			<div className="flex gap-2 mt-1">
+				<Button variant="secondary" onClick={handleAddToCalendar} className="gap-2 flex-1">
+					<CalendarPlus className="size-4" />
+					{t('event.addToCalendar')}
+				</Button>
+				<Button variant="secondary" size="icon" onClick={handleShare} aria-label={t('event.share')}>
+					<Share2 className="size-4" />
+				</Button>
+			</div>
 		</aside>
 	);
 };

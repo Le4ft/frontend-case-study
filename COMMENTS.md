@@ -35,6 +35,24 @@ bonusové funkce (přidání do kalendáře, multijazyčnost CS/EN).
 -   "Přidat do kalendáře" generuje `.ics` soubor (`BEGIN:VCALENDAR…`) čistě na klientovi a stáhne ho přes `Blob`
     URL — funguje offline a bez závislosti na Google/Apple kalendáři konkrétně.
 
+## Další vlastní funkce nad rámec zadání
+
+-   **Countdown do akce** — živě se aktualizující odpočet na obrázku akce (`useCountdown` hook), se stavy
+    upcoming/live/past.
+-   **Zoom mapy sedadel** — tlačítka +/− mění velikost sedadel (24–48px), horizontální scroll pak slouží jako pan.
+-   **Filtrování podle typu vstupenky** — klik na položku v legendě zvýrazní jen daný typ a ztlumí ostatní sedadla;
+    respektuje ho i "náhodné"/"nejlevnější" tlačítko.
+-   **Nejlevnější dostupné místo** — vybírá sedadlo s nejnižší cenou mezi volnými. Cena vychází čistě z reálných dat
+    z API (`ticketTypes[].price`) — v datech použitých pro vývoj existují dvě ceny (VIP/Regular), takže funkce má
+    smysl i bez uměle vymyšlené slevy na jednotlivá sedadla. Cenu jsme záměrně nefalšovali na úrovni sedadla, protože
+    by pak neodpovídala částce, kterou spočítá a vrátí `/order` endpoint.
+-   **Toast notifikace** (`ToastContext`) — potvrzení při přidání/odebrání sedadla, přidání do kalendáře a
+    sdílení/kopírování odkazu.
+-   **Sdílet** — `navigator.share` na podporovaných zařízeních, jinak zkopírování odkazu do schránky s toast
+    potvrzením.
+-   **"Flying to cart" animace** (`flyToCart.ts`) — při přidání/odebrání sedadla (i přes náhodné/nejlevnější
+    tlačítko) odletí malá tečka barvy typu vstupenky směrem k součtu v dolní liště, pomocí Web Animations API.
+
 ## Co by šlo dál (mimo rozsah 2–4h)
 
 -   Testy (Vitest + React Testing Library) pro `CartContext` a `SeatMap` (řazení/mezery v sedadlech).

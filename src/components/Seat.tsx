@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button.tsx';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover.tsx';
 import { useI18n } from '@/context/I18nContext.tsx';
+import { useToast } from '@/context/ToastContext.tsx';
+import { flyToCart } from '@/lib/flyToCart.ts';
 import { formatCurrency } from '@/lib/format.ts';
 import { cn } from '@/lib/utils.ts';
 import { getTicketTypeColor } from '@/lib/seatColors.ts';
@@ -15,32 +17,63 @@ interface SeatProps extends React.HTMLAttributes<HTMLElement> {
 	currencyIso: string;
 	isInCart: boolean;
 	onToggle: () => void;
+	size?: number;
+	dimmed?: boolean;
 }
 
 export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
-	({ seat, seatRow, ticketType, ticketTypeIds, currencyIso, isInCart, onToggle, className, ...props }, ref) => {
+	(
+		{
+			seat,
+			seatRow,
+			ticketType,
+			ticketTypeIds,
+			currencyIso,
+			isInCart,
+			onToggle,
+			size = 32,
+			dimmed = false,
+			className,
+			style,
+			...props
+		},
+		ref
+	) => {
 		const { locale, t } = useI18n();
+		const { showToast } = useToast();
 		const color = getTicketTypeColor(ticketTypeIds, ticketType.id);
+
+		const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
+			flyToCart(e.currentTarget, color.dot);
+			onToggle();
+			showToast(t('toast.seat.added'), 'success');
+		};
+
+		const handleRemove = (e: React.MouseEvent<HTMLButtonElement>) => {
+			flyToCart(e.currentTarget, color.dot, true);
+			onToggle();
+			showToast(t('toast.seat.removed'), 'info');
+		};
 
 		return (
 			<Popover>
 				<PopoverTrigger asChild>
 					<div
 						className={cn(
-							'size-8 rounded-full flex items-center justify-center cursor-pointer transition-all duration-150 hover:scale-110 active:scale-95',
+							'rounded-full flex items-center justify-center cursor-pointer transition-all duration-150 hover:scale-110 active:scale-95',
+							dimmed && 'opacity-25 saturate-50',
 							isInCart
 								? 'bg-zinc-900 hover:bg-zinc-900/90 dark:bg-zinc-50 dark:hover:bg-zinc-50/90 ring-2 ring-offset-2 ring-zinc-900 dark:ring-zinc-50 ring-offset-white dark:ring-offset-zinc-900'
 								: `${color.bg} ${color.hover}`,
 							className
 						)}
+						style={{ width: size, height: size, ...style }}
 						ref={ref}
 						{...props}
 					>
 						<span
-							className={cn(
-								'text-xs font-medium',
-								isInCart ? 'text-white dark:text-zinc-900' : color.text
-							)}
+							className={cn('font-medium', isInCart ? 'text-white dark:text-zinc-900' : color.text)}
+							style={{ fontSize: Math.max(10, Math.round(size * 0.375)) }}
 						>
 							{seat.place}
 						</span>
@@ -78,7 +111,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 								variant="destructive"
 								size="sm"
 								className="rounded-[12.5px] px-4 shrink-0"
-								onClick={onToggle}
+								onClick={handleRemove}
 							>
 								{t('seat.remove.short')}
 							</Button>
@@ -87,7 +120,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 								variant="default"
 								size="sm"
 								className="rounded-[12.5px] px-4 shrink-0"
-								onClick={onToggle}
+								onClick={handleAdd}
 							>
 								{t('seat.add.short')}
 							</Button>
