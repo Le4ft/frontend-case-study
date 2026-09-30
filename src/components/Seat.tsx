@@ -46,8 +46,8 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 						</span>
 					</div>
 				</PopoverTrigger>
-				<PopoverContent className="w-72 p-3">
-					<div className="grid grid-cols-2 gap-3 rounded-md bg-zinc-100 dark:bg-zinc-800/70 p-3.5">
+				<PopoverContent className="w-72 p-4 rounded-[25px]">
+					<div className="grid grid-cols-2 gap-3 rounded-[12.5px] bg-zinc-100 dark:bg-zinc-800/70 p-3.5">
 						<div className="flex flex-col gap-0.5">
 							<span className="text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
 								{t('seatmap.row')}
@@ -62,9 +62,9 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 						</div>
 					</div>
 
-					<div className="flex items-end justify-between gap-3 px-1 pt-3">
+					<div className="flex items-end justify-between gap-3 pt-3">
 						<div className="flex flex-col gap-1.5 min-w-0">
-							<span className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400 truncate">
+							<span className="inline-flex items-center gap-1.5 self-start rounded-full bg-zinc-50 dark:bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-600 dark:text-zinc-300 max-w-full">
 								<span className={cn('size-2 rounded-full shrink-0', color.dot)} />
 								<span className="truncate">{ticketType.name}</span>
 							</span>
@@ -77,13 +77,18 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 							<Button
 								variant="destructive"
 								size="sm"
-								className="rounded-md px-4 shrink-0"
+								className="rounded-[12.5px] px-4 shrink-0"
 								onClick={onToggle}
 							>
 								{t('seat.remove.short')}
 							</Button>
 						) : (
-							<Button variant="default" size="sm" className="rounded-md px-4 shrink-0" onClick={onToggle}>
+							<Button
+								variant="default"
+								size="sm"
+								className="rounded-[12.5px] px-4 shrink-0"
+								onClick={onToggle}
+							>
 								{t('seat.add.short')}
 							</Button>
 						)}
