@@ -3,6 +3,7 @@ import { useCart } from '@/context/CartContext.tsx';
 import { useI18n } from '@/context/I18nContext.tsx';
 import { getTicketTypeColor } from '@/lib/seatColors.ts';
 import type { EventTickets } from '@/types';
+import { Shuffle } from 'lucide-react';
 import React from 'react';
 
 interface SeatMapProps {
@@ -11,13 +12,26 @@ interface SeatMapProps {
 }
 
 export const SeatMap: React.FC<SeatMapProps> = ({ tickets, currencyIso }) => {
-	const { isInCart, toggleSeat } = useCart();
+	const { isInCart, toggleSeat, addSeat } = useCart();
 	const { t } = useI18n();
 
 	const ticketTypeIds = tickets.ticketTypes.map((ticketType) => ticketType.id);
 	const ticketTypeById = new Map(tickets.ticketTypes.map((ticketType) => [ticketType.id, ticketType]));
 
 	const sortedRows = [...tickets.seatRows].sort((a, b) => a.seatRow - b.seatRow);
+
+	const availableSeats = sortedRows.flatMap((row) =>
+		row.seats
+			.filter((seat) => !isInCart(seat.seatId) && ticketTypeById.has(seat.ticketTypeId))
+			.map((seat) => ({ seat, seatRow: row.seatRow }))
+	);
+
+	const handleRandomSeat = () => {
+		if (availableSeats.length === 0) return;
+		const { seat, seatRow } = availableSeats[Math.floor(Math.random() * availableSeats.length)];
+		const ticketType = ticketTypeById.get(seat.ticketTypeId)!;
+		addSeat(seat, ticketType, seatRow);
+	};
 
 	return (
 		<div className="bg-white dark:bg-zinc-900 rounded-xl grow shadow-sm dark:border dark:border-zinc-800 p-4 sm:p-5 self-stretch flex flex-col gap-5">
@@ -84,6 +98,16 @@ export const SeatMap: React.FC<SeatMapProps> = ({ tickets, currencyIso }) => {
 					})}
 				</div>
 			</div>
+
+			<button
+				type="button"
+				onClick={handleRandomSeat}
+				disabled={availableSeats.length === 0}
+				className="flex items-center justify-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors disabled:opacity-40 disabled:pointer-events-none self-center"
+			>
+				<Shuffle className="size-3.5" />
+				{t('seatmap.randomSeat')}
+			</button>
 		</div>
 	);
 };
