@@ -32,7 +32,7 @@ function App() {
 					)}
 
 					{error && !isLoading && (
-						<div className="grow flex flex-col items-center justify-center gap-3 self-stretch bg-white dark:bg-zinc-900 rounded-xl shadow-sm p-12 text-center">
+						<div className="grow flex flex-col items-center justify-center gap-3 self-stretch bg-white dark:bg-zinc-900 rounded-xl shadow-sm dark:border dark:border-zinc-800 p-12 text-center">
 							<AlertTriangle className="size-8 text-red-500 dark:text-red-400" />
 							<p className="text-zinc-600 dark:text-zinc-300">{t('event.error')}</p>
 							<Button variant="secondary" onClick={refetch} className="gap-2">

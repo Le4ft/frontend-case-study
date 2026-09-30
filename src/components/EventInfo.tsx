@@ -24,7 +24,7 @@ export const EventInfo: React.FC<EventInfoProps> = ({ event }) => {
 	};
 
 	return (
-		<aside className="w-full max-w-sm bg-white dark:bg-zinc-900 rounded-xl shadow-sm p-4 flex flex-col gap-3 self-start">
+		<aside className="w-full max-w-sm bg-white dark:bg-zinc-900 rounded-xl shadow-sm dark:border dark:border-zinc-800 p-4 flex flex-col gap-3 self-start">
 			<div className="relative -mx-4 -mt-4 mb-1">
 				<img
 					src={event.headerImageUrl}

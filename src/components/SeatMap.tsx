@@ -20,7 +20,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({ tickets, currencyIso }) => {
 	const sortedRows = [...tickets.seatRows].sort((a, b) => a.seatRow - b.seatRow);
 
 	return (
-		<div className="bg-white dark:bg-zinc-900 rounded-xl grow shadow-sm p-4 sm:p-5 self-stretch flex flex-col gap-5">
+		<div className="bg-white dark:bg-zinc-900 rounded-xl grow shadow-sm dark:border dark:border-zinc-800 p-4 sm:p-5 self-stretch flex flex-col gap-5">
 			<div className="flex flex-wrap items-center gap-2 text-xs">
 				<span className="font-medium text-zinc-700 dark:text-zinc-300 mr-1">{t('seatmap.legend')}:</span>
 				{tickets.ticketTypes.map((ticketType) => {
