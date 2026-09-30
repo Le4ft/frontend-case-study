@@ -46,36 +46,43 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 						</span>
 					</div>
 				</PopoverTrigger>
-				<PopoverContent className="w-64">
-					<div className="flex flex-col gap-1 text-sm">
-						<div className="flex justify-between">
-							<span className="text-zinc-500 dark:text-zinc-400">{t('seatmap.row')}</span>
-							<span className="font-medium">{seatRow}</span>
-						</div>
-						<div className="flex justify-between">
-							<span className="text-zinc-500 dark:text-zinc-400">{t('seat.seat')}</span>
-							<span className="font-medium">{seat.place}</span>
-						</div>
-						<div className="flex justify-between">
-							<span className="text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
-								<span className={cn('size-2 rounded-full', color.dot)} />
-								{ticketType.name}
+				<PopoverContent className="w-72 p-3">
+					<div className="grid grid-cols-2 gap-3 rounded-xl bg-zinc-100 dark:bg-zinc-800/70 p-3.5">
+						<div className="flex flex-col gap-0.5">
+							<span className="text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+								{t('seatmap.row')}
 							</span>
-							<span className="font-medium">{formatCurrency(ticketType.price, currencyIso, locale)}</span>
+							<span className="text-3xl font-bold tabular-nums text-zinc-900 dark:text-zinc-50">{seatRow}</span>
+						</div>
+						<div className="flex flex-col gap-0.5">
+							<span className="text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+								{t('seat.seat')}
+							</span>
+							<span className="text-3xl font-bold tabular-nums text-zinc-900 dark:text-zinc-50">{seat.place}</span>
 						</div>
 					</div>
 
-					<footer className="flex flex-col mt-3">
+					<div className="flex items-end justify-between gap-3 px-1 pt-3">
+						<div className="flex flex-col gap-1.5 min-w-0">
+							<span className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400 truncate">
+								<span className={cn('size-2 rounded-full shrink-0', color.dot)} />
+								<span className="truncate">{ticketType.name}</span>
+							</span>
+							<span className="text-xl font-bold tabular-nums text-zinc-900 dark:text-zinc-50">
+								{formatCurrency(ticketType.price, currencyIso, locale)}
+							</span>
+						</div>
+
 						{isInCart ? (
-							<Button variant="destructive" size="sm" onClick={onToggle}>
-								{t('seat.remove')}
+							<Button variant="destructive" className="rounded-full px-5 shrink-0" onClick={onToggle}>
+								{t('seat.remove.short')}
 							</Button>
 						) : (
-							<Button variant="default" size="sm" onClick={onToggle}>
-								{t('seat.add')}
+							<Button variant="default" className="rounded-full px-6 shrink-0" onClick={onToggle}>
+								{t('seat.add.short')}
 							</Button>
 						)}
-					</footer>
+					</div>
 				</PopoverContent>
 			</Popover>
 		);
