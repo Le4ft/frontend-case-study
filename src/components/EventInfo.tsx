@@ -47,7 +47,7 @@ export const EventInfo: React.FC<EventInfoProps> = ({ event }) => {
 	};
 
 	return (
-		<aside className="w-full max-w-sm bg-white dark:bg-zinc-900 rounded-xl shadow-sm dark:border dark:border-zinc-800 p-4 flex flex-col gap-3 self-start">
+		<aside className="w-full max-w-sm h-full bg-white dark:bg-zinc-900 rounded-xl shadow-sm dark:border dark:border-zinc-800 p-4 flex flex-col gap-3">
 			<div className="relative -mx-4 -mt-4 mb-1">
 				<img
 					src={event.headerImageUrl}
@@ -90,7 +90,7 @@ export const EventInfo: React.FC<EventInfoProps> = ({ event }) => {
 				{event.description}
 			</p>
 
-			<div className="flex gap-2 mt-1">
+			<div className="flex gap-2 mt-auto pt-1">
 				<Button variant="secondary" onClick={handleAddToCalendar} className="gap-2 flex-1">
 					<CalendarPlus className="size-4" />
 					{t('event.addToCalendar')}

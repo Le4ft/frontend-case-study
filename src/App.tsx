@@ -23,7 +23,7 @@ function App() {
 			<Header />
 
 			<main className="grow flex flex-col justify-center">
-				<div className="max-w-screen-lg m-auto p-4 sm:p-6 flex items-start grow gap-4 sm:gap-6 w-full flex-col md:flex-row">
+				<div className="max-w-screen-lg m-auto p-4 sm:p-6 flex items-stretch grow gap-4 sm:gap-6 w-full flex-col md:flex-row">
 					{isLoading && (
 						<>
 							<SeatMapSkeleton />
