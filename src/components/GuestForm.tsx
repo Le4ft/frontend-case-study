@@ -34,6 +34,7 @@ export const GuestForm: React.FC<GuestFormProps> = ({ onSubmit, isSubmitting }) 
 						id="guest-first-name"
 						required
 						icon={<User />}
+						placeholder={t('checkout.firstName.placeholder')}
 						value={details.firstName}
 						onChange={(e) => setDetails((prev) => ({ ...prev, firstName: e.target.value }))}
 					/>
@@ -44,6 +45,7 @@ export const GuestForm: React.FC<GuestFormProps> = ({ onSubmit, isSubmitting }) 
 						id="guest-last-name"
 						required
 						icon={<User />}
+						placeholder={t('checkout.lastName.placeholder')}
 						value={details.lastName}
 						onChange={(e) => setDetails((prev) => ({ ...prev, lastName: e.target.value }))}
 					/>
@@ -56,6 +58,7 @@ export const GuestForm: React.FC<GuestFormProps> = ({ onSubmit, isSubmitting }) 
 					type="email"
 					required
 					icon={<Mail />}
+					placeholder={t('checkout.email.placeholder')}
 					value={details.email}
 					onChange={(e) => setDetails((prev) => ({ ...prev, email: e.target.value }))}
 				/>

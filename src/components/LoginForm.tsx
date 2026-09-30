@@ -56,6 +56,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, submitLabel }) 
 					type="password"
 					required
 					icon={<Lock />}
+					placeholder={t('checkout.password.placeholder')}
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
