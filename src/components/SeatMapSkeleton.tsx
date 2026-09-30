@@ -20,7 +20,7 @@ export const SeatMapSkeleton: React.FC = () => (
 
 export const EventInfoSkeleton: React.FC = () => (
 	<aside className="w-full max-w-sm bg-white dark:bg-zinc-900 rounded-xl shadow-sm p-4 flex flex-col gap-3 self-start animate-pulse">
-		<div className="bg-zinc-100 dark:bg-zinc-800 rounded-lg h-32 w-full" />
+		<div className="bg-zinc-100 dark:bg-zinc-800 rounded-md h-32 w-full" />
 		<div className="h-5 w-3/4 bg-zinc-100 dark:bg-zinc-800 rounded" />
 		<div className="h-3.5 w-1/2 bg-zinc-100 dark:bg-zinc-800 rounded" />
 		<div className="h-3.5 w-2/3 bg-zinc-100 dark:bg-zinc-800 rounded" />

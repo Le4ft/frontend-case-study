@@ -47,7 +47,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 					</div>
 				</PopoverTrigger>
 				<PopoverContent className="w-72 p-3">
-					<div className="grid grid-cols-2 gap-3 rounded-xl bg-zinc-100 dark:bg-zinc-800/70 p-3.5">
+					<div className="grid grid-cols-2 gap-3 rounded-md bg-zinc-100 dark:bg-zinc-800/70 p-3.5">
 						<div className="flex flex-col gap-0.5">
 							<span className="text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
 								{t('seatmap.row')}
